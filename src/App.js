@@ -10,10 +10,12 @@ import Dashboard from './modules/admin/Dashboard';
 import Home from './modules/dispatch/Home';
 import Students from './modules/admin/student/Students';
 import AddStudent from './modules/admin/student/AddStudent';
-import Staff from './modules/admin/Staff';
+import Staff from './modules/admin/staff/Staff';
+import AddStaff from './modules/admin/staff/AddStaff';
 import Rooms from './modules/admin/Rooms';
 import Carlines from './modules/admin/Carlines';
 import ConfirmDialog from './components/ConfirmDialog/ConfirmDialog';
+import EditStudent from './modules/admin/student/EditStudent';
 
 function App() {
     const windowSize = useWindowSize();
@@ -32,10 +34,15 @@ function App() {
                 <Route exact path="/" element={<Login />} />
                 <Route exact path="/login" element={<Login />} />
                 <Route exact path="/admin" element={<PrivateRoute />}>
+                    <Route path="dashboard" element={<Dashboard />} />
+
                     <Route exact path="students" element={<Students/>}/>
                     <Route exact path="students/add" element={<AddStudent />} />
-                    <Route path="dashboard" element={<Dashboard />} />
+                    <Route exact path="students/:id" element={<EditStudent />} />
+                    
                     <Route path="staff" element={<Staff />} />
+                    <Route path="staff/add" element={<AddStaff />} />
+
                     <Route path="rooms" element={<Rooms />} />
                     <Route path="carlines" element={<Carlines />} />
                 </Route>

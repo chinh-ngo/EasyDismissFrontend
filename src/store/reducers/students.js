@@ -46,14 +46,17 @@ export const studentsSlice = createSlice({
             state.students = payload;
         },
         deleteStudent: (state, action: PayloadAction<Object>) => {
-            state.students.shift(item => item.id = action.payload.id);
-            console.log(state.students);
+            state.students.shift(item => item.id == action.payload.id);
         },
         createStudent: (state, action: PayloadAction<Object>) => {
+            state.students.push(action.payload);
+        },
+        updateStudent: (state, action: PayloadAction<Object>) => {
+            state.students.shift(item => item.id = action.payload.id);
             state.students.push(action.payload);
         }
     }
 });
 
-export const {loadStudents, deleteStudent, createStudent} = studentsSlice.actions;
+export const {loadStudents, deleteStudent, createStudent, updateStudent} = studentsSlice.actions;
 export default studentsSlice.reducer;

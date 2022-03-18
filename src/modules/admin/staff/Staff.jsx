@@ -1,44 +1,26 @@
 import {useMemo, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import DataTable from 'react-data-table-component';
-import Main from '../../components/main/Main';
+import Main from '../../../components/main/Main';
 import {useDispatch, useSelector} from 'react-redux';
 import {toast} from 'react-toastify';
-import {showConfirmDialog, hideConfirmDialog} from '../../store/reducers/ui';
-import {Dropdown} from '../../components/elements';
-
-const ActionButton = ({row}) => {
-    const [isOpen, setIsOpen] = useState(false);
-    return (
-        <Dropdown
-            isOpen={isOpen}
-            menuContainerTag="ul"
-            size="sm"
-            buttonTemplate="..."
-            menuTemplate={
-                <>
-                    {/* <li>
-                        <a href="#">Edit</a>
-                        <a href="#">Edit</a>
-                        <a href="#">Edit</a>
-                    </li> */}
-                    <li>Edit</li>
-                    <li>Delete</li>
-                    <li>Generate Barcode</li>
-                </>
-            }
-            className="user-menu"
-        />
-    );
-};
+import {showConfirmDialog, hideConfirmDialog} from '../../../store/reducers/ui';
+import {Dropdown} from '../../../components/elements';
+import {deleteStaff} from '../../../store/reducers/staff'
+import {Button} from 'react-bootstrap'
+import {useNavigate} from 'react-router-dom'
 
 const Staffs = ({props}) => {
-    const [t] = useTranslation();
     const dispatch = useDispatch();
     const staffs = useSelector((state) => state.staffs.staffs);
     const sortIcon = <i className="fas fa-angle-up"></i>;
     const [filterText, setFilterText] = useState('');
+    const navigate = useNavigate()
     // const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
+
+    const addStaff = () => {
+        navigate('/admin/staff/add');
+    }
 
     const handleEdit = (row) => {
         console.log(`Edit => ${row.id}`);
@@ -58,6 +40,26 @@ const Staffs = ({props}) => {
     const deleteConfirmed = (row) => {
         toast.info(`${row.firstName} has been deleted successfully!`);
         dispatch(hideConfirmDialog());
+        dispatch(deleteStaff(row));
+    };
+
+    const ActionButton = ({row}) => {
+        const [isOpen, setIsOpen] = useState(false);
+        return (
+            <Dropdown
+                isOpen={isOpen}
+                menuContainerTag="ul"
+                size="sm"
+                buttonTemplate="Actions"
+                menuTemplate={
+                    <>
+                        <li onClick={(e) => handleEdit(row)}>Edit</li>
+                        <li onClick={(e) => handleDelete(row)}>Delete</li>
+                    </>
+                }
+                className="user-menu"
+            />
+        );
     };
 
     const ActionColumn = {
@@ -109,6 +111,9 @@ const Staffs = ({props}) => {
         <Main>
             <div className="container-fluid">
                 <div className="row">
+                    <Button>
+                        <i onClick={(e) => addStaff()} className="fa fa-plus">Add Staff</i>
+                    </Button>
                     <DataTable
                         striped
                         subHeader
@@ -117,7 +122,7 @@ const Staffs = ({props}) => {
                         highlightOnHover
                         title="Staffs"
                         fixedHeader
-                        fixedHeaderScrollHeight="300px"
+                        fixedHeaderScrollHeight="700px"
                         pagination
                         selectableRows
                         sortIcon={sortIcon}

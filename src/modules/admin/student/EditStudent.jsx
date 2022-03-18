@@ -4,34 +4,37 @@ import Main from '../../../components/main/Main';
 import {useDispatch, useSelector} from 'react-redux';
 import {useNavigate, useParams} from 'react-router-dom'
 import {Button} from 'react-bootstrap'
-import {createStudent} from '../../../store/reducers/students';
+import {updateStudent} from '../../../store/reducers/students';
 
-const AddStudent = (props) => {
+const EditStudent = (props) => {
 
-    const [t] = useTranslation();
+    const {id} = useParams();
+
     const dispatch = useDispatch();
     const students = useSelector((state) => state.students.students);
     const navigate = useNavigate();
 
-    const initialStudentState = {
-        id: null,
-        firstName: "",
-        lastName: "",
-        classroom:"",
-        homeroomTeacher: ""
-    };
+    const [student, setStudent] = useState({});
 
-    const [student, setStudent] = useState(initialStudentState);
+    const getStudent = id => {
+        const st = students.filter((item) => (item.id == id));
+        setStudent(st[0]);
+    }
 
-    const submitHandle = (e) => {
+    useEffect(() => {
+        getStudent(id);
+    });
+
+    const updateHandle = (e) => {
         const data = {
+            id: id,
             firstName: student.firstName,
             lastName: student.lastName,
             classroom: student.classroom,
             homeroomTeacher: student.homeroomTeacher,
         };
 
-        dispatch(createStudent(data));
+        dispatch(updateStudent(data));
         navigate('/admin/students');
     }
 
@@ -44,28 +47,28 @@ const AddStudent = (props) => {
         <Main>
             <div className="container-fluid">
                 <div className="row text-center">
-                    <h5 className="text-center display-4">Add Student</h5>
+                    <h5 className="text-center display-4">Edit Student</h5>
                 </div>
                 <div className="row">
                     <div className="card-body">
                         <div className="form-group">
-                            <label for="firstName">First Name</label>
+                            <label htmlFor="firstName">First Name</label>
                             <input type="text" className="form-control" value={student.firstName} onChange={handleInputChange} name="firstName" required placeholder="Enter email"></input>
                         </div>
                         <div className="form-group">
-                            <label for="lastName">last Name</label>
+                            <label htmlFor="lastName">last Name</label>
                             <input type="text" className="form-control" value={student.lastName} onChange={handleInputChange} name="lastName" required placeholder="Enter Password"></input>
                         </div>
                         <div className="form-group">
-                            <label for="classroom">ClassName</label>
+                            <label htmlFor="classroom">ClassName</label>
                             <input type="text" className="form-control" value={student.classroom} onChange={handleInputChange} name="classroom" required placeholder="Enter ClassName"></input>
                         </div>
                         <div className="form-group">
-                            <label for="homeroomTeacher">homeroomTeacher</label>
+                            <label htmlFor="homeroomTeacher">homeroomTeacher</label>
                             <input type="text" className="form-control" value={student.homeroomTeacher} onChange={handleInputChange} name="homeroomTeacher" required placeholder="Enter homeroomTeacher"></input>
                         </div>
                         <div className="form-group">
-                            <Button onClick={(e) => submitHandle()}>
+                            <Button onClick={(e) => updateHandle()}>
                                 <i className="fa fa-plus"> Submit</i>
                             </Button>
                         </div>
@@ -76,4 +79,4 @@ const AddStudent = (props) => {
     );
 };
 
-export default AddStudent;
+export default EditStudent;

@@ -33,9 +33,19 @@ export const staffsSlice = createSlice({
     reducers: {
         loadStaffs: (state, {payload}) => {
             state.staffs = payload;
+        },
+        deleteStaff: (state, action: PayloadAction<Object>) => {
+            state.staffs.shift(item => item.id == action.payload.id);
+        },
+        createStaff: (state, action: PayloadAction<Object>) => {
+            state.staffs.push(action.payload);
+        },
+        updateStaff: (state, action: PayloadAction<Object>) => {
+            state.staff.shift(item => item.id = action.payload.id);
+            state.staff.push(action.payload);
         }
     }
 });
 
-export const {loadStaffs} = staffsSlice.actions;
+export const {loadStaffs, deleteStaff, createStaff, updateStaff} = staffsSlice.actions;
 export default staffsSlice.reducer;

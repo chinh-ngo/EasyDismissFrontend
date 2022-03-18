@@ -10,7 +10,7 @@ import {Dropdown} from '../../../components/elements';
 import {Button} from 'react-bootstrap'
 import {useNavigate} from 'react-router-dom'
 
-const Students = ({props}) => {
+const Students = (props) => {
     const [t] = useTranslation();
     const dispatch = useDispatch();
     const students = useSelector((state) => state.students.students);
@@ -21,6 +21,7 @@ const Students = ({props}) => {
 
     const handleEdit = (row) => {
         console.log(`Edit => ${row.id}`);
+        navigate('/admin/students/' + row.id);
     };
 
     const addStudent = () => {
@@ -54,7 +55,7 @@ const Students = ({props}) => {
                 buttonTemplate="Actions"
                 menuTemplate={
                     <>
-                        <li>Edit</li>
+                        <li onClick={ (e) => handleEdit(row)}>Edit</li>
                         <li onClick={ (e) => handleDelete(row) }>Delete</li>
                         <li>Generate Barcode</li>
                     </>
@@ -132,7 +133,7 @@ const Students = ({props}) => {
                         highlightOnHover
                         title="Students"
                         fixedHeader
-                        fixedHeaderScrollHeight="300px"
+                        fixedHeaderScrollHeight="700px"
                         pagination
                         selectableRows
                         sortIcon={sortIcon}
