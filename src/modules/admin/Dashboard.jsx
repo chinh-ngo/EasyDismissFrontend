@@ -24,9 +24,9 @@ const Dashboard = () => {
                     <div className="col-lg-3 col-6">
                         <SmallBox
                             count={53}
-                            icon="ion-android-car"
+                            icon="ion-android-people"
                             title={t(
-                                'administration.dashboard.topBoxes.totalCarRiders'
+                                'administration.dashboard.topBoxes.totalStaffs'
                             )}
                             type="success"
                             navigateTo="/"

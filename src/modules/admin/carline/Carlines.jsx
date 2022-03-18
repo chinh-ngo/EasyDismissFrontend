@@ -1,36 +1,15 @@
 import {useMemo, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import DataTable from 'react-data-table-component';
-import Main from '../../components/main/Main';
+import Main from '../../../components/main/Main';
 import {useDispatch, useSelector} from 'react-redux';
 import {toast} from 'react-toastify';
-import {showConfirmDialog, hideConfirmDialog} from '../../store/reducers/ui';
-import {Dropdown} from '../../components/elements';
+import {showConfirmDialog, hideConfirmDialog} from '../../../store/reducers/ui';
+import {Dropdown} from '../../../components/elements';
+import {deleteCarline} from '../../../store/reducers/carlines';
+import {Button} from 'react-bootstrap'
+import {useNavigate} from 'react-router-dom'
 
-const ActionButton = ({row}) => {
-    const [isOpen, setIsOpen] = useState(false);
-    return (
-        <Dropdown
-            isOpen={isOpen}
-            menuContainerTag="ul"
-            size="sm"
-            buttonTemplate="..."
-            menuTemplate={
-                <>
-                    {/* <li>
-                        <a href="#">Edit</a>
-                        <a href="#">Edit</a>
-                        <a href="#">Edit</a>
-                    </li> */}
-                    <li>Edit</li>
-                    <li>Delete</li>
-                    <li>Generate Barcode</li>
-                </>
-            }
-            className="user-menu"
-        />
-    );
-};
 
 const Carlines = ({props}) => {
     const [t] = useTranslation();
@@ -38,10 +17,16 @@ const Carlines = ({props}) => {
     const carlines = useSelector((state) => state.carlines.carlines);
     const sortIcon = <i className="fas fa-angle-up"></i>;
     const [filterText, setFilterText] = useState('');
+    const navigate = useNavigate();
     // const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
+
+    const addCarline = () => {
+        navigate('/admin/carlines/add');
+    }
 
     const handleEdit = (row) => {
         console.log(`Edit => ${row.id}`);
+        navigate('/admin/carlines' + row.id);
     };
 
     const handleDelete = (row) => {
@@ -58,6 +43,26 @@ const Carlines = ({props}) => {
     const deleteConfirmed = (row) => {
         toast.info(`${row.name} has been deleted successfully!`);
         dispatch(hideConfirmDialog());
+        dispatch(deleteCarline(row));
+    };
+
+    const ActionButton = ({row}) => {
+        const [isOpen, setIsOpen] = useState(false);
+        return (
+            <Dropdown
+                isOpen={isOpen}
+                menuContainerTag="ul"
+                size="sm"
+                buttonTemplate="Actions"
+                menuTemplate={
+                    <>
+                        <li onClick={(e) => handleEdit(row)}>Edit</li>
+                        <li onClick={(e) => handleDelete(row)}>Delete</li>
+                    </>
+                }
+                className="user-menu"
+            />
+        );
     };
 
     const ActionColumn = {
@@ -105,6 +110,9 @@ const Carlines = ({props}) => {
         <Main>
             <div className="container-fluid">
                 <div className="row">
+                    <Button>
+                        <i onClick={(e) => addCarline()} className="fa fa-plus">Add Carline</i>
+                    </Button>
                     <DataTable
                         striped
                         subHeader
@@ -113,7 +121,7 @@ const Carlines = ({props}) => {
                         highlightOnHover
                         title="Carlines"
                         fixedHeader
-                        fixedHeaderScrollHeight="300px"
+                        fixedHeaderScrollHeight="700px"
                         pagination
                         selectableRows
                         sortIcon={sortIcon}

@@ -126,7 +126,7 @@ const Rooms = ({props}) => {
                         highlightOnHover
                         title="Rooms"
                         fixedHeader
-                        fixedHeaderScrollHeight="300px"
+                        fixedHeaderScrollHeight="700px"
                         pagination
                         selectableRows
                         sortIcon={sortIcon}

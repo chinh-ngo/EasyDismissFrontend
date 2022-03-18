@@ -33,7 +33,7 @@
         "dashboard": {
             "topBoxes":{
                 "totalStudents": "Total Students",
-                "totalCarRiders": "Total Car Riders",
+                "totalStaffs": "Total Staffs",
                 "totalCarLines": "Total Car Lines",
                 "totalRooms": "Total Rooms"
             }

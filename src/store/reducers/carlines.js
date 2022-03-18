@@ -5,23 +5,23 @@ const initialState = {
         {
             id: 1,
             name: 'CarLine1',
-            isActive: true,
+            isActive: "true",
             
         },
         {
             id: 2,
             name: 'CarLine2',
-            isActive: false,
+            isActive: "false",
         },
         {
             id: 3,
             name: 'CarLine3',
-            isActive: true,
+            isActive: "true",
         },
         {
             id: 4,
             name: 'CarLine3',
-            isActive: false,
+            isActive: "false",
         }
     ],
     dropdownOpen: null
@@ -33,9 +33,19 @@ export const carlinesSlice = createSlice({
     reducers: {
         loadCarlines: (state, {payload}) => {
             state.carlines = payload;
+        },
+        deleteCarline: (state, action: PayloadAction<Object>) => {
+            state.carlines.shift(item => item.id == action.payload.id);
+        },
+        createCarline: (state, action: PayloadAction<Object>) => {
+            state.carlines.push(action.payload);
+        },
+        updateCarline: (state, action: PayloadAction<Object>) => {
+            state.carlines.shift(item => item.id = action.payload.id);
+            state.carlines.push(action.payload);
         }
     }
 });
 
-export const {loadCarlines} = carlinesSlice.actions;
+export const {loadCarlines, deleteCarline, createCarline, updateCarline} = carlinesSlice.actions;
 export default carlinesSlice.reducer;

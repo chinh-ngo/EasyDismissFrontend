@@ -14,11 +14,13 @@ import Staff from './modules/admin/staff/Staff';
 import AddStaff from './modules/admin/staff/AddStaff';
 import Rooms from './modules/admin/room/Rooms';
 import AddRoom from './modules/admin/room/AddRoom';
-import Carlines from './modules/admin/Carlines';
+import Carlines from './modules/admin/carline/Carlines';
 import ConfirmDialog from './components/ConfirmDialog/ConfirmDialog';
 import EditStudent from './modules/admin/student/EditStudent';
 import EditStaff from './modules/admin/staff/EditStaff';
 import EditRoom from './modules/admin/room/EditRoom';
+import EditCarline from './modules/admin/carline/EditCarline';
+import AddCarline from './modules/admin/carline/AddCarline';
 
 function App() {
     const windowSize = useWindowSize();
@@ -43,7 +45,7 @@ function App() {
                     <Route exact path="students/add" element={<AddStudent />} />
                     <Route exact path="students/:id" element={<EditStudent />} />
                     
-                    <Route path="staff" element={<Staff />} />
+                    <Route path="staff" element={<Staff />} />      
                     <Route path="staff/add" element={<AddStaff />} />
                     <Route exact path="staff/:id" element={<EditStaff />} />
 
@@ -52,6 +54,8 @@ function App() {
                     <Route exact path="rooms/:id" element={<EditRoom />} />
 
                     <Route path="carlines" element={<Carlines />} />
+                    <Route path="carlines/add" element={<AddCarline />} />
+                    <Route path="carlines/:id" element={<EditCarline />} />
                 </Route>
                 <Route exact path="/dispatch" element={<PrivateRoute />}>
                     <Route path="home" element={<Home />} />

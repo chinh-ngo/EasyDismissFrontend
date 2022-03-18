@@ -33,16 +33,16 @@ const MenuItems = [
                 path: '/admin/barcodes',
                 icon: 'fas fa-barcode'
             },
-            {
-                name: 'menusidebar.label.administration.reports',
-                path: '/admin/reports',
-                icon: 'fas fa-file-invoice'
-            },
-            {
-                name: 'menusidebar.label.blank',
-                path: '/sub-menu-2',
-                icon: 'fas fa-ghost'
-            }
+            // {
+            //     name: 'menusidebar.label.administration.reports',
+            //     path: '/admin/reports',
+            //     icon: 'fas fa-file-invoice'
+            // },
+            // {
+            //     name: 'menusidebar.label.blank',
+            //     path: '/sub-menu-2',
+            //     icon: 'fas fa-ghost'
+            // }
         ]
     },
     {
