@@ -1,4 +1,4 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 const initialState = {
     students: [
@@ -7,28 +7,32 @@ const initialState = {
             firstName: 'Student 1',
             lastName: 'Last',
             classroom: '5D',
-            homeroomTeacher: 'Black'
+            homeroomTeacher: 'Black',
+            barcodeNumber: '134612323212'
         },
         {
             id: 2,
             firstName: 'Student 2',
             lastName: 'Last',
             classroom: '3A',
-            homeroomTeacher: 'Black'
+            homeroomTeacher: 'Black',
+            barcodeNumber: '135145415432'
         },
         {
             id: 3,
             firstName: 'Student 3',
             lastName: 'Last',
             classroom: '2B',
-            homeroomTeacher: 'Black'
+            homeroomTeacher: 'Black',
+            barcodeNumber: '134654737532'
         },
         {
             id: 4,
             firstName: 'Student 4',
             lastName: 'Last',
             classroom: 'K1',
-            homeroomTeacher: 'Black'
+            homeroomTeacher: 'Black',
+            barcodeNumber: '753354415432'
         }
     ],
     dropdownOpen: null
@@ -40,9 +44,16 @@ export const studentsSlice = createSlice({
     reducers: {
         loadStudents: (state, {payload}) => {
             state.students = payload;
+        },
+        deleteStudent: (state, action: PayloadAction<Object>) => {
+            state.students.shift(item => item.id = action.payload.id);
+            console.log(state.students);
+        },
+        createStudent: (state, action: PayloadAction<Object>) => {
+            state.students.push(action.payload);
         }
     }
 });
 
-export const {loadStudents} = studentsSlice.actions;
+export const {loadStudents, deleteStudent, createStudent} = studentsSlice.actions;
 export default studentsSlice.reducer;

@@ -1,35 +1,14 @@
 import {useMemo, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import DataTable from 'react-data-table-component';
-import Main from '../../components/main/Main';
+import Main from '../../../components/main/Main';
 import {useDispatch, useSelector} from 'react-redux';
 import {toast} from 'react-toastify';
-import {showConfirmDialog, hideConfirmDialog} from '../../store/reducers/ui';
-import {Dropdown} from '../../components/elements';
-
-const ActionButton = ({row}) => {
-    const [isOpen, setIsOpen] = useState(false);
-    return (
-        <Dropdown
-            isOpen={isOpen}
-            menuContainerTag="ul"
-            size="sm"
-            buttonTemplate="..."
-            menuTemplate={
-                <>
-                    <li>
-                        <a href="#">Edit</a>
-                        <a href="#">Edit</a>
-                        <a href="#">Edit</a>
-                    </li>
-                    <li>Delete</li>
-                    <li>Generate Barcode</li>
-                </>
-            }
-            className="user-menu"
-        />
-    );
-};
+import {showConfirmDialog, hideConfirmDialog} from '../../../store/reducers/ui';
+import {deleteStudent} from '../../../store/reducers/students';
+import {Dropdown} from '../../../components/elements';
+import {Button} from 'react-bootstrap'
+import {useNavigate} from 'react-router-dom'
 
 const Students = ({props}) => {
     const [t] = useTranslation();
@@ -37,11 +16,16 @@ const Students = ({props}) => {
     const students = useSelector((state) => state.students.students);
     const sortIcon = <i className="fas fa-angle-up"></i>;
     const [filterText, setFilterText] = useState('');
+    const navigate = useNavigate();
     // const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
 
     const handleEdit = (row) => {
         console.log(`Edit => ${row.id}`);
     };
+
+    const addStudent = () => {
+        navigate('/admin/students/add');
+    }
 
     const handleDelete = (row) => {
         console.log(`Delete => ${row.id}`);
@@ -57,6 +41,27 @@ const Students = ({props}) => {
     const deleteConfirmed = (row) => {
         toast.info(`${row.firstName} has been deleted successfully!`);
         dispatch(hideConfirmDialog());
+        dispatch(deleteStudent(row));
+    };
+
+    const ActionButton = ({row}) => {
+        const [isOpen, setIsOpen] = useState(false);
+        return (
+            <Dropdown
+                isOpen={isOpen}
+                menuContainerTag="ul"
+                size="sm"
+                buttonTemplate="Actions"
+                menuTemplate={
+                    <>
+                        <li>Edit</li>
+                        <li onClick={ (e) => handleDelete(row) }>Delete</li>
+                        <li>Generate Barcode</li>
+                    </>
+                }
+                className="user-menu"
+            />
+        );
     };
 
     const ActionColumn = {
@@ -116,6 +121,9 @@ const Students = ({props}) => {
         <Main>
             <div className="container-fluid">
                 <div className="row">
+                    <Button>
+                        <i onClick={(e) => addStudent()} className="fa fa-plus">Add Student</i>
+                    </Button>
                     <DataTable
                         striped
                         subHeader

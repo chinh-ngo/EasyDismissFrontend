@@ -7,7 +7,9 @@ import {setWindowSize} from './store/reducers/ui';
 import PrivateRoute from './routes/PrivateRoute';
 import Login from './components/login/Login';
 import Dashboard from './modules/admin/Dashboard';
-import Students from './modules/admin/Students';
+import Home from './modules/dispatch/Home';
+import Students from './modules/admin/student/Students';
+import AddStudent from './modules/admin/student/AddStudent';
 import Staff from './modules/admin/Staff';
 import Rooms from './modules/admin/Rooms';
 import Carlines from './modules/admin/Carlines';
@@ -19,7 +21,7 @@ function App() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        const size = calculateWindowSize(windowSize.width);
+        const size  = calculateWindowSize(windowSize.width);
         if (screenSize !== size) dispatch(setWindowSize());
         // eslint-disable-next-line
     }, [windowSize]);
@@ -30,11 +32,15 @@ function App() {
                 <Route exact path="/" element={<Login />} />
                 <Route exact path="/login" element={<Login />} />
                 <Route exact path="/admin" element={<PrivateRoute />}>
+                    <Route exact path="students" element={<Students/>}/>
+                    <Route exact path="students/add" element={<AddStudent />} />
                     <Route path="dashboard" element={<Dashboard />} />
-                    <Route path="students" element={<Students />} />
                     <Route path="staff" element={<Staff />} />
                     <Route path="rooms" element={<Rooms />} />
                     <Route path="carlines" element={<Carlines />} />
+                </Route>
+                <Route exact path="/dispatch" element={<PrivateRoute />}>
+                    <Route path="home" element={<Home />} />
                 </Route>
             </Routes>
             <ConfirmDialog />
