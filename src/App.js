@@ -12,10 +12,13 @@ import Students from './modules/admin/student/Students';
 import AddStudent from './modules/admin/student/AddStudent';
 import Staff from './modules/admin/staff/Staff';
 import AddStaff from './modules/admin/staff/AddStaff';
-import Rooms from './modules/admin/Rooms';
+import Rooms from './modules/admin/room/Rooms';
+import AddRoom from './modules/admin/room/AddRoom';
 import Carlines from './modules/admin/Carlines';
 import ConfirmDialog from './components/ConfirmDialog/ConfirmDialog';
 import EditStudent from './modules/admin/student/EditStudent';
+import EditStaff from './modules/admin/staff/EditStaff';
+import EditRoom from './modules/admin/room/EditRoom';
 
 function App() {
     const windowSize = useWindowSize();
@@ -42,8 +45,12 @@ function App() {
                     
                     <Route path="staff" element={<Staff />} />
                     <Route path="staff/add" element={<AddStaff />} />
+                    <Route exact path="staff/:id" element={<EditStaff />} />
 
                     <Route path="rooms" element={<Rooms />} />
+                    <Route path="rooms/add" element={<AddRoom />} />
+                    <Route exact path="rooms/:id" element={<EditRoom />} />
+
                     <Route path="carlines" element={<Carlines />} />
                 </Route>
                 <Route exact path="/dispatch" element={<PrivateRoute />}>

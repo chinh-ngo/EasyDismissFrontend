@@ -1,36 +1,15 @@
 import {useMemo, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import DataTable from 'react-data-table-component';
-import Main from '../../components/main/Main';
+import Main from '../../../components/main/Main';
 import {useDispatch, useSelector} from 'react-redux';
 import {toast} from 'react-toastify';
-import {showConfirmDialog, hideConfirmDialog} from '../../store/reducers/ui';
-import {Dropdown} from '../../components/elements';
+import {showConfirmDialog, hideConfirmDialog} from '../../../store/reducers/ui';
+import {Dropdown} from '../../../components/elements';
+import {deleteRoom} from '../../../store/reducers/rooms';
+import {Button} from 'react-bootstrap'
+import {useNavigate} from 'react-router-dom'
 
-const ActionButton = ({row}) => {
-    const [isOpen, setIsOpen] = useState(false);
-    return (
-        <Dropdown
-            isOpen={isOpen}
-            menuContainerTag="ul"
-            size="sm"
-            buttonTemplate="..."
-            menuTemplate={
-                <>
-                    {/* <li>
-                        <a href="#">Edit</a>
-                        <a href="#">Edit</a>
-                        <a href="#">Edit</a>
-                    </li> */}
-                    <li>Edit</li>
-                    <li>Delete</li>
-                    <li>Generate Barcode</li>
-                </>
-            }
-            className="user-menu"
-        />
-    );
-};
 
 const Rooms = ({props}) => {
     const [t] = useTranslation();
@@ -38,10 +17,16 @@ const Rooms = ({props}) => {
     const rooms = useSelector((state) => state.rooms.rooms);
     const sortIcon = <i className="fas fa-angle-up"></i>;
     const [filterText, setFilterText] = useState('');
+    const navigate = useNavigate();
     // const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
+
+    const addRoom = () => {
+        navigate('/admin/rooms/add');
+    }
 
     const handleEdit = (row) => {
         console.log(`Edit => ${row.id}`);
+        navigate('/admin/rooms/' + row.id);
     };
 
     const handleDelete = (row) => {
@@ -58,7 +43,28 @@ const Rooms = ({props}) => {
     const deleteConfirmed = (row) => {
         toast.info(`${row.name} has been deleted successfully!`);
         dispatch(hideConfirmDialog());
+        dispatch(deleteRoom(row));
     };
+
+    const ActionButton = ({row}) => {
+        const [isOpen, setIsOpen] = useState(false);
+        return (
+            <Dropdown
+                isOpen={isOpen}
+                menuContainerTag="ul"
+                size="sm"
+                buttonTemplate="Actions"
+                menuTemplate={
+                    <>
+                        <li onClick={(e) => handleEdit(row)}><i className='fa fa-edit'></i>Edit</li>
+                        <li onClick={(e) => handleDelete(row)}><i className='fa fa-trash'></i>Delete</li>
+                    </>
+                }
+                className="user-menu"
+            />
+        );
+    };
+    
 
     const ActionColumn = {
         name: 'Actions'.toLocaleUpperCase(),
@@ -109,6 +115,9 @@ const Rooms = ({props}) => {
         <Main>
             <div className="container-fluid">
                 <div className="row">
+                    <Button>
+                        <i onClick={(e) => addRoom()} className="fa fa-plus">Add Room</i>
+                    </Button>
                     <DataTable
                         striped
                         subHeader

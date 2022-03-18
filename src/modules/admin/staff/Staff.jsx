@@ -24,6 +24,7 @@ const Staffs = ({props}) => {
 
     const handleEdit = (row) => {
         console.log(`Edit => ${row.id}`);
+        navigate('/admin/students/' + row.id);
     };
 
     const handleDelete = (row) => {

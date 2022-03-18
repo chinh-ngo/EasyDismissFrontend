@@ -33,9 +33,20 @@ export const roomsSlice = createSlice({
     reducers: {
         loadRooms: (state, {payload}) => {
             state.rooms = payload;
+        },
+        deleteRoom: (state, action: PayloadAction<Object>) => {
+            state.rooms.shift(item => item.id == action.payload.id);
+        },
+        createRoom: (state, action: PayloadAction<Object>) => {
+            state.rooms.push(action.payload);
+        },
+        updateRoom: (state, action: PayloadAction<Object>) => {
+            state.rooms.shift(item => item.id = action.payload.id);
+            state.rooms.push(action.payload);
         }
+
     }
 });
 
-export const {loadRooms} = roomsSlice.actions;
+export const {loadRooms, deleteRoom, createRoom, updateRoom} = roomsSlice.actions;
 export default roomsSlice.reducer;
