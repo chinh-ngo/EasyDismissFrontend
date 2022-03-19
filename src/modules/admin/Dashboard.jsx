@@ -18,7 +18,7 @@ const Dashboard = () => {
                             )}
                             type="info"
                             icon="ion-android-people"
-                            navigateTo="/students"
+                            navigateTo="/admin/students"
                         />
                     </div>
                     <div className="col-lg-3 col-6">
@@ -29,7 +29,7 @@ const Dashboard = () => {
                                 'administration.dashboard.topBoxes.totalStaffs'
                             )}
                             type="success"
-                            navigateTo="/"
+                            navigateTo="/admin/staff"
                         />
                     </div>
                     <div className="col-lg-3 col-6">
@@ -40,7 +40,7 @@ const Dashboard = () => {
                                 'administration.dashboard.topBoxes.totalCarLines'
                             )}
                             type="warning"
-                            navigateTo="/"
+                            navigateTo="/admin/carlines"
                         />
                     </div>
                     <div className="col-lg-3 col-6">
@@ -51,7 +51,7 @@ const Dashboard = () => {
                                 'administration.dashboard.topBoxes.totalRooms'
                             )}
                             type="danger"
-                            navigateTo="/"
+                            navigateTo="/admin/rooms"
                         />
                     </div>
                 </div>

@@ -5,7 +5,7 @@ import Main from '../../../components/main/Main';
 import {useDispatch, useSelector} from 'react-redux';
 import {toast} from 'react-toastify';
 import {showConfirmDialog, hideConfirmDialog} from '../../../store/reducers/ui';
-import {deleteStudent} from '../../../store/reducers/students';
+import {deleteStudent, generateBarcode} from '../../../store/reducers/students';
 import {Dropdown} from '../../../components/elements';
 import {Button} from 'react-bootstrap'
 import {useNavigate} from 'react-router-dom'
@@ -19,14 +19,20 @@ const Students = (props) => {
     const navigate = useNavigate();
     // const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
 
+    const addStudent = () => {
+        navigate('/admin/students/add');
+    }
+
     const handleEdit = (row) => {
         console.log(`Edit => ${row.id}`);
         navigate('/admin/students/' + row.id);
     };
 
-    const addStudent = () => {
-        navigate('/admin/students/add');
-    }
+    const handleGenerateBarcode = (row) => {
+        console.log(`Edit => ${row.id}`);
+        dispatch(generateBarcode(row));
+        var randomBarcode = Math.floor(Math.random() * 10000) + 10000;
+    };
 
     const handleDelete = (row) => {
         console.log(`Delete => ${row.id}`);
@@ -57,7 +63,7 @@ const Students = (props) => {
                     <>
                         <li onClick={ (e) => handleEdit(row)}>Edit</li>
                         <li onClick={ (e) => handleDelete(row) }>Delete</li>
-                        <li>Generate Barcode</li>
+                        <li onClick={ (e) => handleGenerateBarcode(row)}>Generate Barcode</li>
                     </>
                 }
                 className="user-menu"

@@ -52,11 +52,14 @@ export const studentsSlice = createSlice({
             state.students.push(action.payload);
         },
         updateStudent: (state, action: PayloadAction<Object>) => {
-            state.students.shift(item => item.id = action.payload.id);
+            state.students.shift(item => item.id == action.payload.id);
             state.students.push(action.payload);
+        },
+        generateBarcode: (state, action: PayloadAction<Object>) => {
+            
         }
     }
 });
 
-export const {loadStudents, deleteStudent, createStudent, updateStudent} = studentsSlice.actions;
+export const {loadStudents, deleteStudent, createStudent, updateStudent, generateBarcode} = studentsSlice.actions;
 export default studentsSlice.reducer;

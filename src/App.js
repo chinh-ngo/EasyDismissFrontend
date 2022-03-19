@@ -21,6 +21,7 @@ import EditStaff from './modules/admin/staff/EditStaff';
 import EditRoom from './modules/admin/room/EditRoom';
 import EditCarline from './modules/admin/carline/EditCarline';
 import AddCarline from './modules/admin/carline/AddCarline';
+import Barcodes from './modules/admin/Barcodes';
 
 function App() {
     const windowSize = useWindowSize();
@@ -56,6 +57,8 @@ function App() {
                     <Route path="carlines" element={<Carlines />} />
                     <Route path="carlines/add" element={<AddCarline />} />
                     <Route path="carlines/:id" element={<EditCarline />} />
+
+                    <Route path="barcodes" element={<Barcodes />} />
                 </Route>
                 <Route exact path="/dispatch" element={<PrivateRoute />}>
                     <Route path="home" element={<Home />} />
