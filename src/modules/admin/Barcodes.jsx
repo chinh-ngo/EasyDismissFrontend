@@ -2,7 +2,6 @@ import {useMemo, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import DataTable from 'react-data-table-component';
 import Main from '../../components/main/Main';
-import Barcode from '../../components/Barcode/Barcode'
 import {useDispatch, useSelector} from 'react-redux';
 import {toast} from 'react-toastify';
 import {showConfirmDialog, hideConfirmDialog} from '../../store/reducers/ui';
@@ -10,7 +9,7 @@ import {deleteStudent, generateBarcode} from '../../store/reducers/students';
 import {Dropdown} from '../../components/elements';
 import {Button} from 'react-bootstrap'
 import {useNavigate} from 'react-router-dom'
-import { useBarcode } from 'react-barcode';
+import Barcode from 'react-barcode';
 
 const Barcodes = (props) => {
     const dispatch = useDispatch();
@@ -41,8 +40,7 @@ const Barcodes = (props) => {
                                     <td>{student.firstName}</td>
                                     <td>{student.lastName}</td>
                                     <td>
-                                        {student.barcodeNumber}
-                                        {/* <Barcode barcode={student.barcodeNumber}/> */}
+                                        <Barcode value={student.barcodeNumber}/>
                                     </td>
                                 </tr>
                             ))} 
