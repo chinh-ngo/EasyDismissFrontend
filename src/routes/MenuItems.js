@@ -61,8 +61,8 @@ const MenuItems = [
         icon: 'fas fa-tv',
         children: [
             {
-                name: 'menusidebar.label.dispatch.dispatch',
-                path: '/dispatch/home',
+                name: 'menusidebar.label.dispatch.dispatchedStudents',
+                path: '/rooms',
                 icon: 'fas fa-barcode'
             }
         ]

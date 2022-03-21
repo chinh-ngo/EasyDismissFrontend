@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 const initialState = {
-    students: [
+    dispatchedstudents: [
         {
             id: 1,
             firstName: 'Student 1',
@@ -38,31 +38,28 @@ const initialState = {
     dropdownOpen: null
 };
 
-export const studentsSlice = createSlice({
-    name: 'students',
+export const dispatchedstudentsSlice = createSlice({
+    name: 'dispatchedstudents',
     initialState,
     reducers: {
         loadStudents: (state, {payload}) => {
-            state.students = payload;
+            state.dispatchedstudents = payload;
         },
         deleteStudent: (state, action: PayloadAction<Object>) => {
-            state.students.shift(item => item.id == action.payload.id);
+            state.dispatchedstudents.shift(item => item.id == action.payload.id);
         },
         createStudent: (state, action: PayloadAction<Object>) => {
-            state.students.push(action.payload);
+            state.dispatchedstudents.push(action.payload);
         },
         updateStudent: (state, action: PayloadAction<Object>) => {
-            state.students.shift(item => item.id == action.payload.id);
-            state.students.push(action.payload);
+            state.dispatchedstudents.shift(item => item.id == action.payload.id);
+            state.dispatchedstudents.push(action.payload);
         },
-        generateBarcode: (state, action: PayloadAction<Object>) => {   
-            state.students.forEach(student => {
-                if(student.id === action.payload.id) 
-                    student.barcodeNumber = action.payload.barcodeNumber;
-                });
-            }
+        generateBarcode: (state, action: PayloadAction<Object>) => {
+            
+        }
     }
 });
 
-export const {loadStudents, deleteStudent, createStudent, updateStudent, generateBarcode} = studentsSlice.actions;
-export default studentsSlice.reducer;
+export const {loadStudents, deleteStudent, createStudent, updateStudent, generateBarcode} = dispatchedstudentsSlice.actions;
+export default dispatchedstudentsSlice.reducer;

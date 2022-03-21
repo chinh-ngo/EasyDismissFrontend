@@ -8,6 +8,7 @@ import PrivateRoute from './routes/PrivateRoute';
 import Login from './components/login/Login';
 import Dashboard from './modules/admin/Dashboard';
 import Home from './modules/dispatch/Home';
+import Room from './modules/dispatch/Room';
 import Students from './modules/admin/student/Students';
 import AddStudent from './modules/admin/student/AddStudent';
 import Staff from './modules/admin/staff/Staff';
@@ -63,6 +64,7 @@ function App() {
                 <Route exact path="/dispatch" element={<PrivateRoute />}>
                     <Route path="home" element={<Home />} />
                 </Route>
+                <Route exact path="rooms" element={<Room/>}/>
             </Routes>
             <ConfirmDialog />
         </Router>

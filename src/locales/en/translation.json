@@ -98,7 +98,8 @@
                 "reports": "Reports"
             },
             "dispatch": {
-                "dispatch": "Dispatch"
+                "dispatch": "Dispatch",
+                "dispatchedStudents": "DispatchedStudents"
             },
             "rooms": {
                 "rooms": "Rooms"

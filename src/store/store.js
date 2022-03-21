@@ -7,6 +7,7 @@ import {staffsSlice} from './reducers/staff';
 import {roomsSlice} from './reducers/rooms';
 import {carlinesSlice} from './reducers/carlines';
 import {barcodesSlice} from './reducers/barcodes';
+import {dispatchedstudentsSlice} from './reducers/dispatchedstudents';
 
 const store = configureStore({
     reducer: {
@@ -15,7 +16,8 @@ const store = configureStore({
         students: studentsSlice.reducer,
         staffs: staffsSlice.reducer,
         rooms: roomsSlice.reducer,
-        carlines: carlinesSlice.reducer
+        carlines: carlinesSlice.reducer,
+        dispatchedstudents: dispatchedstudentsSlice.reducer
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({serializableCheck: false})

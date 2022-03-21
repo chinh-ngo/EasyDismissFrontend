@@ -29,9 +29,11 @@ const Students = (props) => {
     };
 
     const handleGenerateBarcode = (row) => {
-        console.log(`Edit => ${row.id}`);
-        dispatch(generateBarcode(row));
+        console.log(`Edit => ${row.barcodeNumber}`);
         var randomBarcode = Math.floor(Math.random() * 10000) + 10000;
+        randomBarcode = randomBarcode.toString();
+        row = {...row, barcodeNumber:randomBarcode};
+        dispatch(generateBarcode(row));
     };
 
     const handleDelete = (row) => {
