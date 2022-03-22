@@ -22,7 +22,7 @@ const Home = ({props}) => {
     const [studentsbyroom, setStudentsbyroom] = useState([]);
 
     useEffect(() => {
-        handleStudentsbyRoom(rooms[0].name);
+        // handleStudentsbyRoom(rooms[0].name);
     });
 
     const handleSelectChange = (e) =>{
@@ -111,12 +111,22 @@ const Home = ({props}) => {
                 {
                     <div className="row">
                         {
+                            dispatchedStudents.filter(student=>student.room===room)
+                                    .map((student, i) =>{
+                                        return(    
+                                            <div className="col-4" key={student.id}>
+                                                <StudentCard  student={student}/>
+                                            </div>
+                                            )
+                            })
+                        }
+                        {/* {
                             studentsbyroom.map((student) => (
                                 <div className="col-4" key={student.id}>
                                     <StudentCard  student={student}/>
                                 </div>
                             ))
-                        }
+                        } */}
                         
                     </div>
                  }

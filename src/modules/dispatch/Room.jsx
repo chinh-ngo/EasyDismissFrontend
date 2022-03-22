@@ -16,7 +16,7 @@ const Home = ({props}) => {
     const [studentsbyroom, setStudentsbyroom] = useState([]);
 
     useEffect(() => {
-        fetchStudents(rooms[0].name);
+        // fetchStudents(rooms[0].name);
     })
 
     const handleSelectChange = (e) =>{
