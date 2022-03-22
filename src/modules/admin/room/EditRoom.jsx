@@ -15,6 +15,7 @@ const EditRoom = (props) => {
     const navigate = useNavigate();
 
     const [room, setRoom] = useState({});
+    const [isUpdate, setIsUpdate] = useState(false);
 
     const getRoom = id => {
         const st = rooms.filter((item) => (item.id == id));
@@ -22,7 +23,11 @@ const EditRoom = (props) => {
     }
 
     useEffect(() => {
-        getRoom(id);
+        if(!isUpdate){
+            getRoom(id);
+            setIsUpdate(true);
+        }
+        
     });
 
     const updateHandle = (e) => {

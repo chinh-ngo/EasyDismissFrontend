@@ -15,6 +15,7 @@ const EditStudent = (props) => {
     const navigate = useNavigate();
 
     const [student, setStudent] = useState({});
+    const [isUpdate, setIsUpdate] = useState(false);
 
     const getStudent = id => {
         const st = students.filter((item) => (item.id == id));
@@ -22,7 +23,10 @@ const EditStudent = (props) => {
     }
 
     useEffect(() => {
-        getStudent(id);
+        if(!isUpdate){
+            getStudent(id);
+            setIsUpdate(true);
+        }
     });
 
     const updateHandle = (e) => {

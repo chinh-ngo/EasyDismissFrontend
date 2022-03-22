@@ -15,6 +15,7 @@ const EditCarline = (props) => {
     const navigate = useNavigate();
 
     const [carline, setCarline] = useState({});
+    const [isUpdate, setIsUpdate] = useState(false);
 
     const getCarline = id => {
         const st = carlines.filter((item) => (item.id == id));
@@ -22,7 +23,11 @@ const EditCarline = (props) => {
     }
 
     useEffect(() => {
-        getCarline(id);
+        if(!isUpdate)
+        {
+            getCarline(id);
+            setIsUpdate(true);
+        }
     });
 
     const updateHandle = (e) => {

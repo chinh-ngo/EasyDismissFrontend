@@ -15,6 +15,7 @@ const EditStaff = (props) => {
     const navigate = useNavigate();
 
     const [staff, setStaff] = useState({});
+    const [isUpdate, setIsUpdate] = useState(false);
 
     const getStaff = id => {
         const st = staffs.filter((item) => (item.id == id));
@@ -22,7 +23,10 @@ const EditStaff = (props) => {
     }
 
     useEffect(() => {
-        getStaff(id);
+        if(!isUpdate){
+            getStaff(id);
+            setIsUpdate(true);
+        }
     });
 
     const updateHandle = (e) => {

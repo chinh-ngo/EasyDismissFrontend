@@ -14,9 +14,13 @@ const Home = ({props}) => {
     
     const [roomid, setRoomid] = useState("");
     const [studentsbyroom, setStudentsbyroom] = useState([]);
+    const [isUpdate, setIsUpdate] = useState(false);
 
     useEffect(() => {
-        // fetchStudents(rooms[0].name);
+        if(!isUpdate){
+            fetchStudents(rooms[0].name);
+            setIsUpdate(true)
+        }
     })
 
     const handleSelectChange = (e) =>{

@@ -20,20 +20,18 @@ const Home = ({props}) => {
     const [filterText, setFilterText] = useState(rooms[0].name);
     const [room, setRoom] = useState('');
     const [studentsbyroom, setStudentsbyroom] = useState([]);
+    const [isUpdate, setIsUpdate] = useState(false);
 
     useEffect(() => {
-        // handleStudentsbyRoom(rooms[0].name);
+        if(!isUpdate){
+            setRoom(rooms[0].name);
+            setIsUpdate(true)
+        }
     });
 
     const handleSelectChange = (e) =>{
         var selectedRoom = e.target.value;
         setRoom(selectedRoom);
-        handleStudentsbyRoom(selectedRoom);
-    }
-
-    const handleStudentsbyRoom = (selectedRoom) =>{
-        var sts = dispatchedStudents.filter((item) => item.room === selectedRoom);
-        setStudentsbyroom(sts);
     }
 
     const getStudent = () =>{
@@ -71,8 +69,6 @@ const Home = ({props}) => {
             };
     
             dispatch(createDispatchedStudent(data));
-
-            handleStudentsbyRoom(room);
 
         }
         else

@@ -33,6 +33,62 @@ const initialState = {
             classroom: 'K1',
             homeroomTeacher: 'Black',
             barcodeNumber: '753354415432'
+        },
+        {
+            id: 5,
+            firstName: 'Student 5',
+            lastName: 'Last',
+            classroom: 'K3',
+            homeroomTeacher: 'Blacks',
+            barcodeNumber: '332323235432'
+        },
+        {
+            id: 6,
+            firstName: 'Student 6',
+            lastName: 'Last',
+            classroom: 'K6',
+            homeroomTeacher: 'Mr F',
+            barcodeNumber: '999986235432'
+        },
+        {
+            id: 7,
+            firstName: 'Student 7',
+            lastName: 'Last',
+            classroom: 'K3',
+            homeroomTeacher: 'FFFF',
+            barcodeNumber: '2356574235432'
+        },
+        {
+            id: 8,
+            firstName: 'Student 8',
+            lastName: 'Last',
+            classroom: 'G3',
+            homeroomTeacher: 'White',
+            barcodeNumber: '3698542135432'
+        },
+        {
+            id: 9,
+            firstName: 'Student 9',
+            lastName: 'Last',
+            classroom: 'K7',
+            homeroomTeacher: 'Blacks',
+            barcodeNumber: '3323259884532'
+        },
+        {
+            id: 10,
+            firstName: 'Student 10',
+            lastName: 'Last',
+            classroom: 'K3',
+            homeroomTeacher: 'Blacks',
+            barcodeNumber: '772323235432'
+        },
+        {
+            id: 11,
+            firstName: 'Student 11',
+            lastName: 'Last',
+            classroom: 'K3',
+            homeroomTeacher: 'Blacks',
+            barcodeNumber: '882323235432'
         }
     ],
     dropdownOpen: null
