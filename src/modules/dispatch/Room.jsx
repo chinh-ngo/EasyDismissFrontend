@@ -54,7 +54,7 @@ const Home = ({props}) => {
                         
                         {
                             studentsbyroom.map((student) => (
-                                <div className="col-md-3">
+                                <div className="col-md-3" key={student.id}>
                                     <StudentCard student={student}/>
                                 </div>
                             ))
