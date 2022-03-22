@@ -49,8 +49,15 @@ export const staffsSlice = createSlice({
             state.staffs.push(action.payload);
         },
         updateStaff: (state, action: PayloadAction<Object>) => {
-            state.staff.shift(item => item.id = action.payload.id);
-            state.staff.push(action.payload);
+            state.staffs.forEach(staff => {
+                if(staff.id == action.payload.id)
+                    {
+                        staff.firstName = action.payload.firstName;
+                        staff.lastName = action.payload.lastName;
+                        staff.email = action.payload.email;
+                        staff.role = action.payload.role;
+                    }
+            })
         }
     }
 });

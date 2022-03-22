@@ -12,6 +12,7 @@ const EditStaff = (props) => {
 
     const dispatch = useDispatch();
     const staffs = useSelector((state) => state.staffs.staffs);
+    const rooms = useSelector((state) => state.rooms.rooms);
     const navigate = useNavigate();
 
     const [staff, setStaff] = useState({});
@@ -34,8 +35,8 @@ const EditStaff = (props) => {
             id: id,
             firstName: staff.firstName,
             lastName: staff.lastName,
-            classroom: staff.classroom,
-            homeroomTeacher: staff.homeroomTeacher,
+            email: staff.email,
+            role: staff.role,
         };
 
         dispatch(updateStaff(data));
@@ -62,6 +63,20 @@ const EditStaff = (props) => {
                         <div className="form-group">
                             <label htmlFor="lastName">last Name</label>
                             <input type="text" className="form-control" value={staff.lastName} onChange={handleInputChange} name="lastName" required placeholder="Enter LastName"></input>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="email">Email</label>
+                            <input type="email" className="form-control" value={staff.email} onChange={handleInputChange} name="email" required placeholder="Enter Email"></input>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="lastName">Role</label>
+                            <select className="form-control" value={staff.role} name="role" onChange={handleInputChange}>
+                                {
+                                    rooms.map((room) => (
+                                        <option value={room.name} key={room.id}>{room.name}</option>
+                                    ))
+                                }
+                            </select>
                         </div>
                         <div className="form-group">
                             <Button onClick={(e) => updateHandle()}>

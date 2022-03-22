@@ -36,6 +36,7 @@ const EditStudent = (props) => {
             lastName: student.lastName,
             classroom: student.classroom,
             homeroomTeacher: student.homeroomTeacher,
+            barcodeNumber: student.barcodeNumber
         };
 
         dispatch(updateStudent(data));
@@ -70,6 +71,10 @@ const EditStudent = (props) => {
                         <div className="form-group">
                             <label htmlFor="homeroomTeacher">homeroomTeacher</label>
                             <input type="text" className="form-control" value={student.homeroomTeacher} onChange={handleInputChange} name="homeroomTeacher" required placeholder="Enter homeroomTeacher"></input>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="barcodeNumber">BarcodeNumber</label>
+                            <input type="text" className="form-control" value={student.barcodeNumber} onChange={handleInputChange} name="barcodeNumber" required placeholder="Enter homeroomTeacher"></input>
                         </div>
                         <div className="form-group">
                             <Button onClick={(e) => updateHandle()}>

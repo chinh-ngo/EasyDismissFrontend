@@ -108,8 +108,16 @@ export const studentsSlice = createSlice({
             state.students.push(action.payload);
         },
         updateStudent: (state, action: PayloadAction<Object>) => {
-            state.students.shift(item => item.id == action.payload.id);
-            state.students.push(action.payload);
+            state.students.forEach(student => {
+                if(student.id == action.payload.id)
+                    {
+                        student.barcodeNumber = action.payload.barcodeNumber;
+                        student.firstName = action.payload.firstName;
+                        student.lastName = action.payload.lastName;
+                        student.classroom = action.payload.classroom;
+                        student.homeroomTeacher = action.payload.homeroomTeacher;
+                    }
+            })
         },
         generateBarcode: (state, action: PayloadAction<Object>) => {   
             state.students.forEach(student => {

@@ -41,8 +41,13 @@ export const roomsSlice = createSlice({
             state.rooms.push(action.payload);
         },
         updateRoom: (state, action: PayloadAction<Object>) => {
-            state.rooms.shift(item => item.id = action.payload.id);
-            state.rooms.push(action.payload);
+            state.rooms.forEach(room => {
+                if(room.id == action.payload.id)
+                    {
+                        room.name = action.payload.name;
+                        room.description = action.payload.description;
+                    }
+            })
         }
     }
 });

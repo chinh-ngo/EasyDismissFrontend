@@ -41,8 +41,13 @@ export const carlinesSlice = createSlice({
             state.carlines.push(action.payload);
         },
         updateCarline: (state, action: PayloadAction<Object>) => {
-            state.carlines.shift(item => item.id = action.payload.id);
-            state.carlines.push(action.payload);
+            state.carlines.forEach(carline => {
+                if(carline.id == action.payload.id)
+                    {
+                        carline.name = action.payload.name;
+                        carline.isActive = action.payload.isActive;
+                    }
+            })
         }
     }
 });
