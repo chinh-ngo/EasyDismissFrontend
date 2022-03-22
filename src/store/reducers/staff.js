@@ -7,7 +7,7 @@ const initialState = {
             firstName: 'Staff 1',
             lastName: 'Last',
             email: 'staff1@gmail.com',
-            role: 'Room1'
+            role: 'teacher'
             
         },
         {
@@ -15,21 +15,21 @@ const initialState = {
             firstName: 'Staff 2',
             lastName: 'Last',
             email: 'staff2@gmail.com',
-            role: 'Room2'
+            role: 'admin'
         },
         {
             id: 3,
             firstName: 'Staff 3',
             lastName: 'Last',
             email: 'staff3@gmail.com',
-            role: 'Room3'
+            role: 'staff'
         },
         {
             id: 4,
             firstName: 'Staff 4',
             lastName: 'Last',
             email: 'staff4@gmail.com',
-            role: 'Room4'
+            role: 'teacher'
         }
     ],
     dropdownOpen: null

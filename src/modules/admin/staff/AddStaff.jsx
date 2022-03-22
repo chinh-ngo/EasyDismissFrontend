@@ -77,11 +77,9 @@ const AddStaff = (props) => {
                         <div className="form-group">
                             <label htmlFor="lastName">Role</label>
                             <select className="form-control" value={staff.role} name="role" onChange={handleInputChange}>
-                                {
-                                    rooms.map((room) => (
-                                        <option value={room.name} key={room.id}>{room.name}</option>
-                                    ))
-                                }
+                                <option value="admin">Admin</option>
+                                <option value="staff">Staff</option>
+                                <option value="teacher">Teacher</option>
                             </select>
                         </div>
                         <div className="form-group">
