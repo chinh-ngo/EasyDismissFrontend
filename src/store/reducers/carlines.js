@@ -5,23 +5,23 @@ const initialState = {
         {
             id: 1,
             name: 'CarLine1',
-            isActive: "true",
+            isActive: "InActive",
             
         },
         {
             id: 2,
             name: 'CarLine2',
-            isActive: "false",
+            isActive: "Active",
         },
         {
             id: 3,
             name: 'CarLine3',
-            isActive: "true",
+            isActive: "InActive",
         },
         {
             id: 4,
             name: 'CarLine4',
-            isActive: "false",
+            isActive: "Active",
         }
     ],
     dropdownOpen: null
