@@ -55,7 +55,10 @@ const EditCarline = (props) => {
                         </div>
                         <div className="form-group">
                             <label htmlFor="lastName">isActive</label>
-                            <input type="text" className="form-control" value={carline.isActive} onChange={handleInputChange} name="isActive" required placeholder="Enter Password"></input>
+                            <select className="form-control" value={carline.isActive} onChange={handleInputChange} name="isActive">
+                                <option value="Active">Active</option>
+                                <option value="InActive">InActive</option>
+                            </select>
                         </div>
                         <div className="form-group">
                             <Button onClick={(e) => updateHandle()}>
