@@ -11,17 +11,18 @@ const Home = ({props}) => {
     const dispatchedstudents = useSelector((state) => state.dispatchedstudents.dispatchedstudents);
     const rooms = useSelector((state) => state.rooms.rooms);
     
-    const [room, setRoom] = useState("");
+    const [roomid, setRoomid] = useState("");
     const [studentsbyroom, setStudentsbyroom] = useState([]);
 
     const handleSelectChange = (e) =>{
-        setRoom(e.target.value);
-        var sts = dispatchedstudents.filter((item) => item.room === room);
-        console.log(sts);
+        var selectedroomid = e.target.value;
+        setRoomid(selectedroomid);
+        var sts = dispatchedstudents.filter((item) => item.room === selectedroomid);
         setStudentsbyroom(sts);
     }
 
     return (
+        
         <Main>
             <div className="container-fluid">
 
@@ -30,7 +31,7 @@ const Home = ({props}) => {
                         <select className="form-control form-control-lg" onChange={(e) => handleSelectChange(e)}>
                             {
                                 rooms.map((room) => (
-                                    <option value={room.name}>{room.name}</option>
+                                    <option value={room.name} key={room.id}>{room.name}</option>
                                 ))
                             }
                         </select>

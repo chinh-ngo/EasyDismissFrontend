@@ -35,12 +35,13 @@ const Home = ({props}) => {
 
 
     const handleSelectChange = (e) =>{
-        setRoom(e.target.value);
-        handleStudentsbyRoom();
+        var selectedRoom = e.target.value;
+        setRoom(selectedRoom);
+        handleStudentsbyRoom(selectedRoom);
     }
 
-    const handleStudentsbyRoom = () =>{
-        var sts = dispatchedStudents.filter((item) => item.room === room);
+    const handleStudentsbyRoom = (selectedRoom) =>{
+        var sts = dispatchedStudents.filter((item) => item.room === selectedRoom);
         setStudentsbyroom(sts);
     }
 
@@ -80,6 +81,8 @@ const Home = ({props}) => {
             };
     
             dispatch(createDispatchedStudent(data));
+
+            handleStudentsbyRoom(room);
 
         }
         else
