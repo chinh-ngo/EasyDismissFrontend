@@ -36,7 +36,7 @@ const Barcodes = (props) => {
                         </thead>
                         <tbody>
                             {students.map((student) => (
-                                <tr>
+                                <tr key={student.id}>
                                     <td>{student.firstName}</td>
                                     <td>{student.lastName}</td>
                                     <td>

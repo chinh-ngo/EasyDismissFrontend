@@ -6,7 +6,6 @@ import {useDispatch, useSelector} from 'react-redux';
 import {toast} from 'react-toastify';
 import {showConfirmDialog, hideConfirmDialog} from '../../../store/reducers/ui';
 import {deleteStudent, generateBarcode} from '../../../store/reducers/students';
-import {Dropdown} from '../../../components/elements';
 import {Button} from 'react-bootstrap'
 import {useNavigate} from 'react-router-dom'
 
@@ -17,7 +16,6 @@ const Students = (props) => {
     const sortIcon = <i className="fas fa-angle-up"></i>;
     const [filterText, setFilterText] = useState('');
     const navigate = useNavigate();
-    // const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
 
     const addStudent = () => {
         navigate('/admin/students/add');
@@ -56,20 +54,20 @@ const Students = (props) => {
     const ActionButton = ({row}) => {
         const [isOpen, setIsOpen] = useState(false);
         return (
-            <Dropdown
-                isOpen={isOpen}
-                menuContainerTag="ul"
-                size="sm"
-                buttonTemplate="Actions"
-                menuTemplate={
-                    <>
-                        <li onClick={ (e) => handleEdit(row)}>Edit</li>
-                        <li onClick={ (e) => handleDelete(row) }>Delete</li>
-                        <li onClick={ (e) => handleGenerateBarcode(row)}>Generate Barcode</li>
-                    </>
-                }
-                className="user-menu"
-            />
+            <div>    
+                <a className="btn btn-primary btn-sm" onClick={ (e) => handleGenerateBarcode(row)}>
+                    <i className="fas fa-barcode">
+                    </i>
+                </a>
+                <a className="btn btn-info btn-sm" onClick={ (e) => handleEdit(row)}>
+                    <i className="fas fa-pencil-alt">
+                    </i>
+                </a>
+                <a className="btn btn-danger btn-sm" onClick={ (e) => handleDelete(row) }>
+                    <i className="fas fa-trash">
+                    </i>
+                </a>    
+            </div>
         );
     };
 
@@ -78,7 +76,8 @@ const Students = (props) => {
         sortable: false,
         selector: (row) => row.id,
         button: true,
-        cell: (row) => <ActionButton row={row} />
+
+        cell: (row) => <ActionButton row={row}/>
     };
 
     let columns = !students.length
@@ -111,15 +110,10 @@ const Students = (props) => {
     );
 
     const subHeaderComponentMemo = useMemo(() => {
-        // const handleClear = () => {
-        //     if (filterText) {
-        //         setResetPaginationToggle(!resetPaginationToggle);
-        //         setFilterText('');
-        //     }
-        // };
-
         return (
             <input
+                style={{width: "300px"}}
+                className="form-control"
                 onChange={(e) => setFilterText(e.target.value)}
                 placeholder="Search..."
             />
@@ -133,6 +127,7 @@ const Students = (props) => {
                     <Button>
                         <i onClick={(e) => addStudent()} className="fa fa-plus">Add Student</i>
                     </Button>
+
                     <DataTable
                         striped
                         subHeader

@@ -15,13 +15,23 @@ const AddCarline = (props) => {
     const initialCarlineState = {
         id: null,
         name: "",
-        isActive: null
+        isActive: ""
     };
 
     const [carline, setCarline] = useState(initialCarlineState);
 
     const submitHandle = (e) => {
+        var maxId = 0;
+        
+        for(var i = 0; i < carlines.length; i++)
+        {
+            if(carlines[i].id > maxId)
+             maxId = carlines[i].id;
+        }
+        maxId++;
+
         const data = {
+            id: maxId,
             name: carline.name,
             isActive: carline.isActive
         };
@@ -44,11 +54,11 @@ const AddCarline = (props) => {
                 <div className="row">
                     <div className="card-body">
                         <div className="form-group">
-                            <label for="firstName">Name</label>
+                            <label htmlFor="firstName">Name</label>
                             <input type="text" className="form-control" value={carline.name} onChange={handleInputChange} name="name" required placeholder="Enter Name"></input>
                         </div>
                         <div className="form-group">
-                            <label for="lastName">IsActive</label>
+                            <label htmlFor="lastName">IsActive</label>
                             <input type="text" className="form-control" value={carline.isActive} onChange={handleInputChange} name="isActive" required placeholder="Enter isActive"></input>
                         </div>
                         <div className="form-group">

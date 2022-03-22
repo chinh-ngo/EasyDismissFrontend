@@ -49,19 +49,16 @@ const Rooms = ({props}) => {
     const ActionButton = ({row}) => {
         const [isOpen, setIsOpen] = useState(false);
         return (
-            <Dropdown
-                isOpen={isOpen}
-                menuContainerTag="ul"
-                size="sm"
-                buttonTemplate="Actions"
-                menuTemplate={
-                    <>
-                        <li onClick={(e) => handleEdit(row)}><i className='fa fa-edit'></i>Edit</li>
-                        <li onClick={(e) => handleDelete(row)}><i className='fa fa-trash'></i>Delete</li>
-                    </>
-                }
-                className="user-menu"
-            />
+            <div>    
+                <a className="btn btn-info btn-sm" onClick={ (e) => handleEdit(row)}>
+                    <i className="fas fa-pencil-alt">
+                    </i>
+                </a>
+                <a className="btn btn-danger btn-sm" onClick={ (e) => handleDelete(row) }>
+                    <i className="fas fa-trash">
+                    </i>
+                </a>    
+            </div>
         );
     };
     
@@ -105,6 +102,8 @@ const Rooms = ({props}) => {
 
         return (
             <input
+                style={{width: "300px"}}
+                className="form-control"
                 onChange={(e) => setFilterText(e.target.value)}
                 placeholder="Search..."
             />

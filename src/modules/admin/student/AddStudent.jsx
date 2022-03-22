@@ -24,11 +24,25 @@ const AddStudent = (props) => {
     const [student, setStudent] = useState(initialStudentState);
 
     const submitHandle = (e) => {
+        var maxId = 0;
+        
+        for(var i = 0; i < students.length; i++)
+        {
+            if(students[i].id > maxId)
+             maxId = students[i].id;
+        }
+        maxId++;
+
+        var randomBarcode = Math.floor(Math.random() * 10000) + 10000;
+        randomBarcode = randomBarcode.toString();
+
         const data = {
+            id: maxId,
             firstName: student.firstName,
             lastName: student.lastName,
             classroom: student.classroom,
             homeroomTeacher: student.homeroomTeacher,
+            barcodeNumber: randomBarcode 
         };
 
         dispatch(createStudent(data));
@@ -49,19 +63,19 @@ const AddStudent = (props) => {
                 <div className="row">
                     <div className="card-body">
                         <div className="form-group">
-                            <label for="firstName">First Name</label>
-                            <input type="text" className="form-control" value={student.firstName} onChange={handleInputChange} name="firstName" required placeholder="Enter email"></input>
+                            <label htmlFor="firstName">First Name</label>
+                            <input type="text" className="form-control" value={student.firstName} onChange={handleInputChange} name="firstName" required placeholder="Enter FirstName"></input>
                         </div>
                         <div className="form-group">
-                            <label for="lastName">last Name</label>
-                            <input type="text" className="form-control" value={student.lastName} onChange={handleInputChange} name="lastName" required placeholder="Enter Password"></input>
+                            <label htmlFor="lastName">last Name</label>
+                            <input type="text" className="form-control" value={student.lastName} onChange={handleInputChange} name="lastName" required placeholder="Enter LastName"></input>
                         </div>
                         <div className="form-group">
-                            <label for="classroom">ClassName</label>
+                            <label htmlFor="classroom">ClassName</label>
                             <input type="text" className="form-control" value={student.classroom} onChange={handleInputChange} name="classroom" required placeholder="Enter ClassName"></input>
                         </div>
                         <div className="form-group">
-                            <label for="homeroomTeacher">homeroomTeacher</label>
+                            <label htmlFor="homeroomTeacher">homeroomTeacher</label>
                             <input type="text" className="form-control" value={student.homeroomTeacher} onChange={handleInputChange} name="homeroomTeacher" required placeholder="Enter homeroomTeacher"></input>
                         </div>
                         <div className="form-group">

@@ -24,7 +24,7 @@ const Staffs = ({props}) => {
 
     const handleEdit = (row) => {
         console.log(`Edit => ${row.id}`);
-        navigate('/admin/students/' + row.id);
+        navigate('/admin/staff/' + row.id);
     };
 
     const handleDelete = (row) => {
@@ -47,21 +47,19 @@ const Staffs = ({props}) => {
     const ActionButton = ({row}) => {
         const [isOpen, setIsOpen] = useState(false);
         return (
-            <Dropdown
-                isOpen={isOpen}
-                menuContainerTag="ul"
-                size="sm"
-                buttonTemplate="Actions"
-                menuTemplate={
-                    <>
-                        <li onClick={(e) => handleEdit(row)}>Edit</li>
-                        <li onClick={(e) => handleDelete(row)}>Delete</li>
-                    </>
-                }
-                className="user-menu"
-            />
+            <div>    
+                <a className="btn btn-info btn-sm" onClick={ (e) => handleEdit(row)}>
+                    <i className="fas fa-pencil-alt">
+                    </i>
+                </a>
+                <a className="btn btn-danger btn-sm" onClick={ (e) => handleDelete(row) }>
+                    <i className="fas fa-trash">
+                    </i>
+                </a>    
+            </div>
         );
     };
+
 
     const ActionColumn = {
         name: 'Actions'.toLocaleUpperCase(),
@@ -93,15 +91,11 @@ const Staffs = ({props}) => {
     );
 
     const subHeaderComponentMemo = useMemo(() => {
-        // const handleClear = () => {
-        //     if (filterText) {
-        //         setResetPaginationToggle(!resetPaginationToggle);
-        //         setFilterText('');
-        //     }
-        // };
-
+    
         return (
             <input
+                style={{width: "300px"}}
+                className="form-control"
                 onChange={(e) => setFilterText(e.target.value)}
                 placeholder="Search..."
             />

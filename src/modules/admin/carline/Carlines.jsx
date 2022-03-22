@@ -26,7 +26,7 @@ const Carlines = ({props}) => {
 
     const handleEdit = (row) => {
         console.log(`Edit => ${row.id}`);
-        navigate('/admin/carlines' + row.id);
+        navigate('/admin/carlines/' + row.id);
     };
 
     const handleDelete = (row) => {
@@ -49,19 +49,16 @@ const Carlines = ({props}) => {
     const ActionButton = ({row}) => {
         const [isOpen, setIsOpen] = useState(false);
         return (
-            <Dropdown
-                isOpen={isOpen}
-                menuContainerTag="ul"
-                size="sm"
-                buttonTemplate="Actions"
-                menuTemplate={
-                    <>
-                        <li onClick={(e) => handleEdit(row)}>Edit</li>
-                        <li onClick={(e) => handleDelete(row)}>Delete</li>
-                    </>
-                }
-                className="user-menu"
-            />
+            <div>    
+                <a className="btn btn-info btn-sm" onClick={ (e) => handleEdit(row)}>
+                    <i className="fas fa-pencil-alt">
+                    </i>
+                </a>
+                <a className="btn btn-danger btn-sm" onClick={ (e) => handleDelete(row) }>
+                    <i className="fas fa-trash">
+                    </i>
+                </a>    
+            </div>
         );
     };
 
@@ -100,6 +97,8 @@ const Carlines = ({props}) => {
 
         return (
             <input
+                style={{width: "300px"}}
+                className="form-control"
                 onChange={(e) => setFilterText(e.target.value)}
                 placeholder="Search..."
             />

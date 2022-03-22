@@ -5,14 +5,22 @@ import { useSelector, useDispatch } from 'react-redux';
 import {useMemo, useState} from 'react';
 import StudentCard from '../../components/StudentCard/StudentCard';
 import {signalR} from '@microsoft/signalr';
+import {toast} from 'react-toastify';
+import {createDispatchedStudent} from '../../store/reducers/dispatchedstudents';
 
 
 const Home = ({props}) => {
 
     const dispatch = useDispatch();
     const students = useSelector((state) => state.students.students);
+    const rooms = useSelector((state) => state.rooms.rooms);
+    const dispatchedStudents = useSelector((state) => state.dispatchedstudents.dispatchedstudents);
+
     const [student, setStudent] = useState({});
-    const [filterText, setFilterText] = useState('');
+    const [filterText, setFilterText] = useState(rooms[0].name);
+    const [room, setRoom] = useState('');
+    const [studentsbyroom, setStudentsbyroom] = useState([]);
+
     const filterStudents = students.filter(
         (item) => (item.firstName &&
                     item.firstName
@@ -25,13 +33,16 @@ const Home = ({props}) => {
                         .toLowerCase() == (filterText.toLowerCase()))                
     );
 
-    let columns = !students.length
-        ? []
-        : Object.getOwnPropertyNames(students[0]).map((c) => ({
-              name: c.toLocaleUpperCase(),
-              selector: (row) => row[c],
-              sortable: true
-          }));
+
+    const handleSelectChange = (e) =>{
+        setRoom(e.target.value);
+        handleStudentsbyRoom();
+    }
+
+    const handleStudentsbyRoom = () =>{
+        var sts = dispatchedStudents.filter((item) => item.room === room);
+        setStudentsbyroom(sts);
+    }
 
 
     const getStudent = () =>{
@@ -47,16 +58,53 @@ const Home = ({props}) => {
                                     .toLowerCase()==(filterText.toLowerCase())));
 
         if(filterStudents.length>0)   
-            setStudent(filterStudents[0]);
+        {
+            var maxId = 0;
+        
+            for(var i = 0; i < dispatchedStudents.length; i++)
+            {
+                if(dispatchedStudents[i].id > maxId)
+                    maxId = dispatchedStudents[i].id;
+            }
+
+            maxId++;
+
+            const data = {
+                id: maxId,
+                firstName: filterStudents[0].firstName,
+                lastName: filterStudents[0].lastName,
+                classroom: filterStudents[0].classroom,
+                homeroomTeacher: filterStudents[0].homeroomTeacher,
+                barcodeNumber: filterStudents[0].barcodeNumber,
+                room: room
+            };
+    
+            dispatch(createDispatchedStudent(data));
+
+        }
         else
-            setStudent({});
+        {
+            toast.error(`NOT FOUND`);
+        }
+            
     }
     return (
         <Main>
             <div className="container-fluid">
                 <h2 className="text-center display-4">Dispatch</h2>
                 <div className="row" style={{marginBottom: 30}}>
-                    <div className="col-md-8 offset-md-2">
+                    <div className="col-md-4">
+                        <div className="form-group">
+                            <select className="form-control form-control-lg" onChange={(e) => handleSelectChange(e)}>
+                                {
+                                    rooms.map((room) => (
+                                        <option value={room.name} key={room.id}>{room.name}</option>
+                                    ))
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div className="col-md-8">
                         <div className="input-group">
                         <input type="search" onChange={(e) => setFilterText(e.target.value)} onKeyPress={(e) => {if (e.key === 'Enter') getStudent()} }  className="form-control form-control-lg" placeholder="Type your keywords here"></input>
                             <div className="input-group-append">
@@ -68,19 +116,17 @@ const Home = ({props}) => {
                     </div>
                 </div>
                 {
-                    student.firstName ?
                     <div className="row">
-                        <div className="col-4"></div>
-                        <div className="col-4">
-                            <StudentCard student={student}/>
-                        </div>
-                        <div className="col-4"></div>
+                        {
+                            studentsbyroom.map((student) => (
+                                <div className="col-4" key={student.id}>
+                                    <StudentCard  student={student}/>
+                                </div>
+                            ))
+                        }
+                        
                     </div>
-                    : 
-                        <p>
-                            
-                        </p>
-                }
+                 }
             </div>
         </Main>
     );

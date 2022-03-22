@@ -8,7 +8,8 @@ const initialState = {
             lastName: 'Last',
             classroom: '5D',
             homeroomTeacher: 'Black',
-            barcodeNumber: '134612323212'
+            barcodeNumber: '134612323212',
+            room: 'Room1'
         },
         {
             id: 2,
@@ -16,7 +17,8 @@ const initialState = {
             lastName: 'Last',
             classroom: '3A',
             homeroomTeacher: 'Black',
-            barcodeNumber: '135145415432'
+            barcodeNumber: '135145415432',
+            room: 'Room2'
         },
         {
             id: 3,
@@ -24,7 +26,8 @@ const initialState = {
             lastName: 'Last',
             classroom: '2B',
             homeroomTeacher: 'Black',
-            barcodeNumber: '134654737532'
+            barcodeNumber: '134654737532',
+            room: 'Room3'
         },
         {
             id: 4,
@@ -32,7 +35,8 @@ const initialState = {
             lastName: 'Last',
             classroom: 'K1',
             homeroomTeacher: 'Black',
-            barcodeNumber: '753354415432'
+            barcodeNumber: '753354415432',
+            room: 'Room4'
         }
     ],
     dropdownOpen: null
@@ -42,24 +46,21 @@ export const dispatchedstudentsSlice = createSlice({
     name: 'dispatchedstudents',
     initialState,
     reducers: {
-        loadStudents: (state, {payload}) => {
+        loadDispatchedStudents: (state, {payload}) => {
             state.dispatchedstudents = payload;
         },
-        deleteStudent: (state, action: PayloadAction<Object>) => {
-            state.dispatchedstudents.shift(item => item.id == action.payload.id);
+        deleteDispatchedStudent: (state, action: PayloadAction<Object>) => {
+            state.dispatchedstudents = state.dispatchedstudents.filter(item => item.id !== action.payload.id);
         },
-        createStudent: (state, action: PayloadAction<Object>) => {
+        createDispatchedStudent: (state, action: PayloadAction<Object>) => {
             state.dispatchedstudents.push(action.payload);
         },
-        updateStudent: (state, action: PayloadAction<Object>) => {
+        updateDispatchedStudent: (state, action: PayloadAction<Object>) => {
             state.dispatchedstudents.shift(item => item.id == action.payload.id);
             state.dispatchedstudents.push(action.payload);
-        },
-        generateBarcode: (state, action: PayloadAction<Object>) => {
-            
         }
     }
 });
 
-export const {loadStudents, deleteStudent, createStudent, updateStudent, generateBarcode} = dispatchedstudentsSlice.actions;
+export const {loadDispatchedStudents, deleteDispatchedStudent, createDispatchedStudent, updateDispatchedStudent} = dispatchedstudentsSlice.actions;
 export default dispatchedstudentsSlice.reducer;

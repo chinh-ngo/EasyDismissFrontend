@@ -35,7 +35,7 @@ export const roomsSlice = createSlice({
             state.rooms = payload;
         },
         deleteRoom: (state, action: PayloadAction<Object>) => {
-            state.rooms.shift(item => item.id == action.payload.id);
+            state.rooms = state.rooms.filter(item => item.id !== action.payload.id);
         },
         createRoom: (state, action: PayloadAction<Object>) => {
             state.rooms.push(action.payload);
@@ -44,7 +44,6 @@ export const roomsSlice = createSlice({
             state.rooms.shift(item => item.id = action.payload.id);
             state.rooms.push(action.payload);
         }
-
     }
 });
 

@@ -21,7 +21,17 @@ const AddRoom = (props) => {
     const [room, setRoom] = useState(initialRoomState);
 
     const submitHandle = (e) => {
+        var maxId = 0;
+        
+        for(var i = 0; i < rooms.length; i++)
+        {
+            if(rooms[i].id > maxId)
+             maxId = rooms[i].id;
+        }
+        maxId++;
+
         const data = {
+            id: maxId,
             name: room.name,
             description: room.description
         };
@@ -44,12 +54,12 @@ const AddRoom = (props) => {
                 <div className="row">
                     <div className="card-body">
                         <div className="form-group">
-                            <label for="firstName">Name</label>
-                            <input type="text" className="form-control" value={room.name} onChange={handleInputChange} name="name" required placeholder="Enter email"></input>
+                            <label htmlFor="firstName">Name</label>
+                            <input type="text" className="form-control" value={room.name} onChange={handleInputChange} name="name" required placeholder="Enter Name"></input>
                         </div>
                         <div className="form-group">
-                            <label for="lastName">Description</label>
-                            <input type="text" className="form-control" value={room.description} onChange={handleInputChange} name="description" required placeholder="Enter Password"></input>
+                            <label htmlFor="lastName">Description</label>
+                            <input type="text" className="form-control" value={room.description} onChange={handleInputChange} name="description" required placeholder="Enter Description"></input>
                         </div>
                         <div className="form-group">
                             <Button onClick={(e) => submitHandle()}>

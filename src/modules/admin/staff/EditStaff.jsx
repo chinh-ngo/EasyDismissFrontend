@@ -47,17 +47,17 @@ const EditStaff = (props) => {
         <Main>
             <div className="container-fluid">
                 <div className="row text-center">
-                    <h5 className="text-center display-4">Edit Student</h5>
+                    <h5 className="text-center display-4">Edit Staff</h5>
                 </div>
                 <div className="row">
                     <div className="card-body">
                         <div className="form-group">
                             <label htmlFor="firstName">First Name</label>
-                            <input type="text" className="form-control" value={staff.firstName} onChange={handleInputChange} name="firstName" required placeholder="Enter email"></input>
+                            <input type="text" className="form-control" value={staff.firstName} onChange={handleInputChange} name="firstName" required placeholder="Enter FirstName"></input>
                         </div>
                         <div className="form-group">
                             <label htmlFor="lastName">last Name</label>
-                            <input type="text" className="form-control" value={staff.lastName} onChange={handleInputChange} name="lastName" required placeholder="Enter Password"></input>
+                            <input type="text" className="form-control" value={staff.lastName} onChange={handleInputChange} name="lastName" required placeholder="Enter LastName"></input>
                         </div>
                         <div className="form-group">
                             <Button onClick={(e) => updateHandle()}>

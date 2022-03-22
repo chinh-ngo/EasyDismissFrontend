@@ -20,7 +20,7 @@ const initialState = {
         },
         {
             id: 4,
-            name: 'CarLine3',
+            name: 'CarLine4',
             isActive: "false",
         }
     ],
@@ -35,7 +35,7 @@ export const carlinesSlice = createSlice({
             state.carlines = payload;
         },
         deleteCarline: (state, action: PayloadAction<Object>) => {
-            state.carlines.shift(item => item.id == action.payload.id);
+            state.carlines = state.carlines.filter(item => item.id !== action.payload.id);
         },
         createCarline: (state, action: PayloadAction<Object>) => {
             state.carlines.push(action.payload);

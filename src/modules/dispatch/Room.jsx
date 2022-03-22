@@ -9,21 +9,45 @@ const Home = ({props}) => {
 
     const dispatch = useDispatch();
     const dispatchedstudents = useSelector((state) => state.dispatchedstudents.dispatchedstudents);
+    const rooms = useSelector((state) => state.rooms.rooms);
+    
+    const [room, setRoom] = useState("");
+    const [studentsbyroom, setStudentsbyroom] = useState([]);
+
+    const handleSelectChange = (e) =>{
+        setRoom(e.target.value);
+        var sts = dispatchedstudents.filter((item) => item.room === room);
+        console.log(sts);
+        setStudentsbyroom(sts);
+    }
+
     return (
         <Main>
             <div className="container-fluid">
-                {
-                    <div className="row">
+
+                <div className="row">
+                    <div className="form-group">
+                        <select className="form-control form-control-lg" onChange={(e) => handleSelectChange(e)}>
                             {
-                                dispatchedstudents.map((student) => (
-                                    <div className="col-3">
-                                        <StudentCard student={student}/>
-                                    </div>
+                                rooms.map((room) => (
+                                    <option value={room.name}>{room.name}</option>
                                 ))
                             }
+                        </select>
                     </div>
+                </div>    
+                <div className="row">
+                        
+                        {
+                            studentsbyroom.map((student) => (
+                                <div className="col-md-3">
+                                    <StudentCard student={student}/>
+                                </div>
+                            ))
+                        }
+                        
+                </div>
                  
-                 }
             </div>
         </Main>
     );
