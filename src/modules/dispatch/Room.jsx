@@ -4,6 +4,7 @@ import {Button} from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux';
 import {useMemo, useState} from 'react';
 import StudentCard from '../../components/StudentCard/StudentCard';
+import { useEffect } from 'react';
 
 const Home = ({props}) => {
 
@@ -14,9 +15,17 @@ const Home = ({props}) => {
     const [roomid, setRoomid] = useState("");
     const [studentsbyroom, setStudentsbyroom] = useState([]);
 
+    useEffect(() => {
+        fetchStudents(rooms[0].name);
+    })
+
     const handleSelectChange = (e) =>{
         var selectedroomid = e.target.value;
         setRoomid(selectedroomid);
+        fetchStudents(selectedroomid);
+    }
+
+    const fetchStudents = (selectedroomid) =>{
         var sts = dispatchedstudents.filter((item) => item.room === selectedroomid);
         setStudentsbyroom(sts);
     }

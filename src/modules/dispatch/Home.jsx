@@ -2,7 +2,7 @@ import React from 'react';
 import Main from '../../components/main/Main';
 import {Button} from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux';
-import {useMemo, useState} from 'react';
+import {useMemo, useState, useEffect} from 'react';
 import StudentCard from '../../components/StudentCard/StudentCard';
 import {signalR} from '@microsoft/signalr';
 import {toast} from 'react-toastify';
@@ -21,18 +21,9 @@ const Home = ({props}) => {
     const [room, setRoom] = useState('');
     const [studentsbyroom, setStudentsbyroom] = useState([]);
 
-    const filterStudents = students.filter(
-        (item) => (item.firstName &&
-                    item.firstName
-                        .toLowerCase() == (filterText.toLowerCase()))||
-                (item.lastName &&
-                    item.lastName
-                        .toLowerCase() == (filterText.toLowerCase()))||
-                (item.barcodeNumber &&
-                    item.barcodeNumber
-                        .toLowerCase() == (filterText.toLowerCase()))                
-    );
-
+    useEffect(() => {
+        handleStudentsbyRoom(rooms[0].name);
+    });
 
     const handleSelectChange = (e) =>{
         var selectedRoom = e.target.value;
@@ -44,7 +35,6 @@ const Home = ({props}) => {
         var sts = dispatchedStudents.filter((item) => item.room === selectedRoom);
         setStudentsbyroom(sts);
     }
-
 
     const getStudent = () =>{
         var filterStudents = students.filter(
