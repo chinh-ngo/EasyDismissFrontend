@@ -106,7 +106,7 @@ const Home = ({props}) => {
 
             sendDispatchedStudent(data);
     
-            dispatch(createDispatchedStudent(data));
+            // dispatch(createDispatchedStudent(data));
 
         }
         else
