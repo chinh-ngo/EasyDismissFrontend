@@ -3,27 +3,22 @@ import {useMemo, useState, useEffect} from 'react';
 import Main from '../../../components/main/Main';
 import {useDispatch, useSelector} from 'react-redux';
 import {useNavigate, useParams} from 'react-router-dom'
-import {Button} from 'react-bootstrap'
+import {Input, Checkbox, Button} from '../../../components/elements';
+import {useFormik} from 'formik';
 import {createStudent} from '../../../store/reducers/students';
+import {faEnvelope, faUser, faLock, faUsers, faHouseUser} from '@fortawesome/free-solid-svg-icons';
+
+import * as Yup from 'yup';
 
 const AddStudent = (props) => {
 
     const [t] = useTranslation();
     const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState(false);
     const students = useSelector((state) => state.students.students);
     const navigate = useNavigate();
 
-    const initialStudentState = {
-        id: null,
-        firstName: "",
-        lastName: "",
-        classroom:"",
-        homeroomTeacher: ""
-    };
-
-    const [student, setStudent] = useState(initialStudentState);
-
-    const submitHandle = (e) => {
+    const submitHandle = (firstName, lastName, classroom, homeroomTeacher) => {
         var maxId = 0;
         
         for(var i = 0; i < students.length; i++)
@@ -38,10 +33,10 @@ const AddStudent = (props) => {
 
         const data = {
             id: maxId,
-            firstName: student.firstName,
-            lastName: student.lastName,
-            classroom: student.classroom,
-            homeroomTeacher: student.homeroomTeacher,
+            firstName: firstName,
+            lastName: lastName,
+            classroom: classroom,
+            homeroomTeacher: homeroomTeacher,
             barcodeNumber: randomBarcode 
         };
 
@@ -49,10 +44,28 @@ const AddStudent = (props) => {
         navigate('/admin/students');
     }
 
-    const handleInputChange = event => {
-        const { name, value } = event.target;
-        setStudent({ ...student, [name]: value });
-    };
+    const formik = useFormik({
+        initialValues: {
+            firstName: '',
+            lastName: '',
+            classroom: '',
+            homeroomTeacher: ''
+        },
+        validationSchema: Yup.object({
+            firstName: Yup.string()
+                .required('Required'),
+            lastName: Yup.string()
+                .required('Required'),
+            classroom: Yup.string()
+                .required('Required'),
+            homeroomTeacher: Yup.string()
+                .required('Required'),
+            
+        }),
+        onSubmit: (values) => {
+            submitHandle(values.firstName, values.lastName, values.classroom, values.homeroomTeacher);
+        }
+    });
 
     return (
         <Main>
@@ -62,7 +75,65 @@ const AddStudent = (props) => {
                 </div>
                 <div className="row">
                     <div className="card-body">
-                        <div className="form-group">
+
+                    <form onSubmit={formik.handleSubmit}>
+                        <div className="mb-3">
+                            <Input
+                                icon={faUser}
+                                placeholder="FirstName"
+                                type="text"
+                                formik={formik}
+                                formikFieldProps={formik.getFieldProps('firstName')}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <Input
+                                icon={faUser}
+                                placeholder="LastName"
+                                type="text"
+                                formik={formik}
+                                formikFieldProps={formik.getFieldProps(
+                                    'lastName'
+                                )}
+                            />
+                        </div>
+
+                        <div className="mb-3">
+                            <Input
+                                icon={faUsers}
+                                placeholder="Classroom"
+                                type="text"
+                                formik={formik}
+                                formikFieldProps={formik.getFieldProps(
+                                    'classroom'
+                                )}
+                            />
+                        </div>
+
+                        <div className="mb-3">
+                            <Input
+                                icon={faHouseUser}
+                                placeholder="HomeroomTeacher"
+                                type="text"
+                                formik={formik}
+                                formikFieldProps={formik.getFieldProps(
+                                    'homeroomTeacher'
+                                )}
+                            />
+                        </div>
+
+
+                        <div className="row">
+                                <Button
+                                    block="true"
+                                    type="submit"
+                                    isLoading={isLoading}
+                                >
+                                    Submit
+                                </Button>
+                        </div>
+                    </form>
+                        {/* <div className="form-group">
                             <label htmlFor="firstName">First Name</label>
                             <input type="text" className="form-control" value={student.firstName} onChange={handleInputChange} name="firstName" required placeholder="Enter FirstName"></input>
                         </div>
@@ -82,7 +153,7 @@ const AddStudent = (props) => {
                             <Button onClick={(e) => submitHandle()}>
                                 <i className="fa fa-plus"> Submit</i>
                             </Button>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
