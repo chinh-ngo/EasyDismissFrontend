@@ -133,27 +133,6 @@ const AddStudent = (props) => {
                                 </Button>
                         </div>
                     </form>
-                        {/* <div className="form-group">
-                            <label htmlFor="firstName">First Name</label>
-                            <input type="text" className="form-control" value={student.firstName} onChange={handleInputChange} name="firstName" required placeholder="Enter FirstName"></input>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="lastName">last Name</label>
-                            <input type="text" className="form-control" value={student.lastName} onChange={handleInputChange} name="lastName" required placeholder="Enter LastName"></input>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="classroom">ClassName</label>
-                            <input type="text" className="form-control" value={student.classroom} onChange={handleInputChange} name="classroom" required placeholder="Enter ClassName"></input>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="homeroomTeacher">homeroomTeacher</label>
-                            <input type="text" className="form-control" value={student.homeroomTeacher} onChange={handleInputChange} name="homeroomTeacher" required placeholder="Enter homeroomTeacher"></input>
-                        </div>
-                        <div className="form-group">
-                            <Button onClick={(e) => submitHandle()}>
-                                <i className="fa fa-plus"> Submit</i>
-                            </Button>
-                        </div> */}
                     </div>
                 </div>
             </div>
