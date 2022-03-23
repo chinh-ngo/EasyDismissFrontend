@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import {useMemo, useState} from 'react';
 import StudentCard from '../../components/StudentCard/StudentCard';
 import { useEffect } from 'react';
+import {HubConnectionBuilder} from '@microsoft/signalr';
+import {createDispatchedStudent} from '../../store/reducers/dispatchedstudents';
 
 const Home = ({props}) => {
 
@@ -15,6 +17,29 @@ const Home = ({props}) => {
     const [roomid, setRoomid] = useState("");
     const [studentsbyroom, setStudentsbyroom] = useState([]);
     const [isUpdate, setIsUpdate] = useState(false);
+    const [connection, setConnection] = useState(null);
+
+    useEffect(() => {
+        const newConnection = new HubConnectionBuilder()
+                                .withUrl("http://localhost:7220/room")
+                                .withAutomaticReconnect()
+                                .build();
+
+        setConnection(newConnection);
+    }, []);
+
+    useEffect(() => {
+        if (connection) {
+          connection
+            .start()
+            .then((result) => {
+              connection.on("broadcastStudent", (data) => {
+                dispatch(createDispatchedStudent(data));
+              });
+            })
+            .catch((e) => console.log("Connection failed: ", e));
+        }
+    }, [connection]);
 
     useEffect(() => {
         if(!isUpdate){

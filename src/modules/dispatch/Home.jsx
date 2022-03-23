@@ -7,7 +7,7 @@ import StudentCard from '../../components/StudentCard/StudentCard';
 import {signalR} from '@microsoft/signalr';
 import {toast} from 'react-toastify';
 import {createDispatchedStudent} from '../../store/reducers/dispatchedstudents';
-
+import {HubConnectionBuilder} from '@microsoft/signalr';
 
 const Home = ({props}) => {
 
@@ -21,6 +21,42 @@ const Home = ({props}) => {
     const [room, setRoom] = useState('');
     const [studentsbyroom, setStudentsbyroom] = useState([]);
     const [isUpdate, setIsUpdate] = useState(false);
+    const [connection, setConnection] = useState(null);
+
+    useEffect(() => {
+        const newConnection = new HubConnectionBuilder()
+                                .withUrl("http://localhost:7220/room")
+                                .withAutomaticReconnect()
+                                .build();
+
+        setConnection(newConnection);
+    }, []);
+
+    useEffect(() => {
+        if (connection) {
+          connection
+            .start()
+            .then((result) => {
+              connection.on("broadcastStudent", (data) => {
+                dispatch(createDispatchedStudent(data));
+              });
+            })
+            .catch((e) => console.log("Connection failed: ", e));
+        }
+    }, [connection]);
+
+    const sendDispatchedStudent = async(data) => {
+
+        // if (connection.connectionStarted) {
+            try {
+              await connection.invoke("SendStudentData", data);
+            } catch (e) {
+              console.log(e);
+            }
+        //   } else {
+            // alert("No connection to server yet.");
+        //   }
+    }
 
     useEffect(() => {
         if(!isUpdate){
@@ -67,6 +103,8 @@ const Home = ({props}) => {
                 barcodeNumber: filterStudents[0].barcodeNumber,
                 room: room
             };
+
+            sendDispatchedStudent(data);
     
             dispatch(createDispatchedStudent(data));
 
