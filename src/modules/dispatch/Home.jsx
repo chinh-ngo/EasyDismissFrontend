@@ -4,10 +4,10 @@ import {Button} from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux';
 import {useMemo, useState, useEffect} from 'react';
 import StudentCard from '../../components/StudentCard/StudentCard';
-import {signalR} from '@microsoft/signalr';
 import {toast} from 'react-toastify';
 import {createDispatchedStudent} from '../../store/reducers/dispatchedstudents';
 import {HubConnectionBuilder} from '@microsoft/signalr';
+import AppSetting from '../../AppSetting';
 
 const Home = ({props}) => {
 
@@ -25,7 +25,7 @@ const Home = ({props}) => {
 
     useEffect(() => {
         const newConnection = new HubConnectionBuilder()
-                                .withUrl("http://localhost:7220/room")
+                                .withUrl(AppSetting.serverBaseUrl + "/room")
                                 .withAutomaticReconnect()
                                 .build();
 
@@ -153,15 +153,7 @@ const Home = ({props}) => {
                                             </div>
                                             )
                             })
-                        }
-                        {/* {
-                            studentsbyroom.map((student) => (
-                                <div className="col-4" key={student.id}>
-                                    <StudentCard  student={student}/>
-                                </div>
-                            ))
-                        } */}
-                        
+                        }                        
                     </div>
                  }
             </div>

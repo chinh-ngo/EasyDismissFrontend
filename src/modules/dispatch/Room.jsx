@@ -7,6 +7,7 @@ import StudentCard from '../../components/StudentCard/StudentCard';
 import { useEffect } from 'react';
 import {HubConnectionBuilder} from '@microsoft/signalr';
 import {createDispatchedStudent} from '../../store/reducers/dispatchedstudents';
+import AppSetting from '../../AppSetting';
 
 const Home = ({props}) => {
 
@@ -20,7 +21,7 @@ const Home = ({props}) => {
 
     useEffect(() => {
         const newConnection = new HubConnectionBuilder()
-                                .withUrl("http://localhost:7220/room")
+                                .withUrl(AppSetting.serverBaseUrl + "/room")
                                 .withAutomaticReconnect()
                                 .build();
 
