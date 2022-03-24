@@ -14,8 +14,7 @@ const Home = ({props}) => {
     const dispatchedstudents = useSelector((state) => state.dispatchedstudents.dispatchedstudents);
     const rooms = useSelector((state) => state.rooms.rooms);
     
-    const [roomid, setRoomid] = useState("");
-    const [studentsbyroom, setStudentsbyroom] = useState([]);
+    const [room, setRoom] = useState("");
     const [isUpdate, setIsUpdate] = useState(false);
     const [connection, setConnection] = useState(null);
 
@@ -43,20 +42,14 @@ const Home = ({props}) => {
 
     useEffect(() => {
         if(!isUpdate){
-            fetchStudents(rooms[0].name);
+            setRoom(rooms[0].name);
             setIsUpdate(true)
         }
     })
 
     const handleSelectChange = (e) =>{
-        var selectedroomid = e.target.value;
-        setRoomid(selectedroomid);
-        fetchStudents(selectedroomid);
-    }
-
-    const fetchStudents = (selectedroomid) =>{
-        var sts = dispatchedstudents.filter((item) => item.room === selectedroomid);
-        setStudentsbyroom(sts);
+        var selectedroom = e.target.value;
+        setRoom(selectedroom);
     }
 
     return (
@@ -78,11 +71,14 @@ const Home = ({props}) => {
                 <div className="row">
                         
                         {
-                            studentsbyroom.map((student) => (
-                                <div className="col-md-3" key={student.id}>
-                                    <StudentCard student={student}/>
-                                </div>
-                            ))
+                            dispatchedstudents.filter(student=>student.room===room)
+                                    .map((student, i) =>{
+                                        return(    
+                                            <div className="col-4" key={student.id}>
+                                                <StudentCard  student={student}/>
+                                            </div>
+                                            )
+                            })
                         }
                         
                 </div>
